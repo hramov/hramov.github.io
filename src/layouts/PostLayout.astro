@@ -1,0 +1,29 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+}
+const { post } = Astro.props;
+const { title, description, pubDate, tags } = post.data;
+const dateStr = pubDate.toLocaleDateString('ru-RU', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout title={title} description={description}>
+  <article>
+    <header class="post-header">
+      <p class="meta">{dateStr}</p>
+      <h1>{title}</h1>
+      {tags.length > 0 && (
+        <p class="tags">{tags.map((t) => <span>#{t}</span>)}</p>
+      )}
+    </header>
+    <slot />
+  </article>
+  <p style="margin-top:3rem"><a href="/">← ко всем статьям</a></p>
+</BaseLayout>

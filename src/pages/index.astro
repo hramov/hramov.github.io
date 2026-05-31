@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('posts', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<BaseLayout title="backend/notes — заметки про бэкенд и архитектуру">
+  <p style="font-size:1.15rem;color:var(--ink-soft);max-width:34rem;margin-bottom:3rem;">
+    Заметки про backend, архитектуру и инженерные решения. Из практики,
+    а не из учебника.
+  </p>
+
+  <ul class="post-list">
+    {posts.map((post) => (
+      <li>
+        <p class="meta">{fmt(post.data.pubDate)}</p>
+        <h2><a href={`/posts/${post.id}/`}>{post.data.title}</a></h2>
+        <p class="desc">{post.data.description}</p>
+        {post.data.tags.length > 0 && (
+          <p class="tags">{post.data.tags.map((t) => <span>#{t}</span>)}</p>
+        )}
+      </li>
+    ))}
+  </ul>
+
+  {posts.length === 0 && <p>Пока пусто. Первая статья — за тобой.</p>}
+</BaseLayout>

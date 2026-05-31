@@ -1,0 +1,215 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("posts", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const me = {
+  name: "Сергей Храмов",
+  role: "Senior Backend Developer · Software Architect",
+  summary:
+    "Backend-разработчик с уклоном в проектирование систем. Основной стек — " +
+    "TypeScript (Node.js / NestJS); пишу на Rust для задач, где важны " +
+    "производительность и контроль над ресурсами, ранее работал с Go. " +
+    "Проектирую по принципам Clean Architecture и DDD, разбиваю монолиты на " +
+    "сервисы и связываю их через gRPC, REST и брокеры (Kafka, RabbitMQ). " +
+    "Закрываю весь цикл — от выбора архитектуры и стека до эксплуатации в " +
+    "проде. Двигаюсь в сторону роли архитектора / технического лида.",
+  email: "trykhramov@yandex.ru",
+  phone: "+7 (923) 036-05-17",
+  github: "https://github.com/hramov",
+  location: "Барнаул · удалённо",
+};
+
+const jobs = [
+  {
+    title: "Разработчик",
+    company: "Р-Вижн",
+    when: "окт 2024 — наст. время",
+    points: ["Разработка веб-сервисов."],
+  },
+  {
+    title: "Ведущий программист",
+    company: "ГВЦ ОАО «РЖД»",
+    when: "сен 2022 — окт 2024",
+    points: [
+      "Разработка информационной панели и других проектов для анализа качества и мониторинга бизнес-процессов.",
+      "Проработка технических решений, оценка сроков реализации, участие в разработке архитектуры приложений.",
+      "Unit/E2E-тестирование, написание технической документации.",
+    ],
+  },
+  {
+    title: "Backend-разработчик",
+    company: "Estesis.tech",
+    when: "янв 2024 — апр 2024",
+    points: [
+      "Разработка веб-сервиса на NestJS на основе интеграций с внешними API (SOAP, REST).",
+      "Миграции PostgreSQL, работа с очередями через RabbitMQ.",
+    ],
+  },
+  {
+    title:
+      "Ведущий технолог отдела разработки и сопровождения систем сервис-менеджмента",
+    company: "ГВЦ ОАО «РЖД»",
+    when: "янв 2022 — сен 2022",
+    points: [
+      "Синхронизация и планирование работ по проектам разработки информационных систем.",
+      "Организация проектов автоматизации внутренних процессов эксплуатационной деятельности ГВЦ.",
+      "Обеспечение проектов документацией для ввода в действие и сопровождения.",
+    ],
+  },
+  {
+    title: "Старший группы разработки",
+    company: "ГВЦ ВС РФ",
+    when: "янв 2020 — дек 2020",
+    points: [
+      "Разработка ПО на JavaScript/TypeScript (Node.js): crawler, серверная и клиентская части (Vue.js).",
+      "Руководство командой: приоритизация задач, проектирование решений, менторство.",
+    ],
+  },
+];
+
+const skills = [
+  ["Языки", "TypeScript, JavaScript (Node.js), Rust, Go, SQL"],
+  ["Бэкенд", "NestJS, Express.js, REST, gRPC, RabbitMQ, Kafka, Redis"],
+  [
+    "Архитектура",
+    "Clean Architecture, DDD, SOLID, паттерны проектирования, декомпозиция монолитов",
+  ],
+  ["Базы данных", "PostgreSQL — серверная разработка, оптимизация запросов"],
+  [
+    "Инфраструктура",
+    "Linux, Docker, Kubernetes, CI/CD, Nginx, HAProxy, keepalived",
+  ],
+  ["Сети · отладка", "TCP/IP, основы компьютерных сетей, Wireshark"],
+  [
+    "Лидерство",
+    "руководство командой, менторство, декомпозиция и оценка задач",
+  ],
+];
+
+const certs = [
+  ["Основные практики архитектора ПО", "2024"],
+  ["PostgreSQL: разработка · PostgreSQL 12 (расширенный курс)", "2023"],
+  ["PostgreSQL 13: оптимизация запросов", "2022"],
+  ["EFSET English Certificate — C2 Proficient (75/100)", "2022"],
+];
+---
+
+<BaseLayout title={`${me.name} — резюме`} description={me.summary}>
+  <div class="resume">
+    <header class="resume-head">
+      <h1>{me.name}</h1>
+      <p class="role">{me.role}</p>
+      <p class="contacts">
+        <a href={`mailto:${me.email}`}>{me.email}</a>
+        <a href={`tel:${me.phone.replace(/[^+\d]/g, "")}`}>{me.phone}</a>
+        <a href={me.github}>github</a>
+        <span>{me.location}</span>
+      </p>
+    </header>
+
+    <p style="font-size:1.1rem;color:var(--ink-soft);max-width:37rem;">
+      {me.summary}
+    </p>
+
+    <section>
+      <h2>Опыт · 5 лет 5 месяцев</h2>
+      {
+        jobs.map((job) => (
+          <div class="job">
+            <div class="job-top">
+              <h3>{job.title}</h3>
+              <span class="when">{job.when}</span>
+            </div>
+            <div class="at">{job.company}</div>
+            <ul>
+              {job.points.map((p) => (
+                <li>{p}</li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </section>
+
+    <section>
+      <h2>Навыки</h2>
+      <dl class="skill-grid">
+        {
+          skills.map(([k, v]) => (
+            <>
+              <>
+                <dt>{k}</dt>
+                <dd>{v}</dd>
+              </>
+            </>
+          ))
+        }
+      </dl>
+    </section>
+
+    <section>
+      <h2>Сертификаты</h2>
+      <dl class="skill-grid">
+        {
+          certs.map(([name, year]) => (
+            <>
+              <>
+                <dt>{year}</dt>
+                <dd>{name}</dd>
+              </>
+            </>
+          ))
+        }
+      </dl>
+    </section>
+
+    <section>
+      <h2>Языки</h2>
+      <dl class="skill-grid">
+        <dt>Русский</dt><dd>родной</dd>
+        <dt>Английский</dt><dd>C1 — продвинутый</dd>
+      </dl>
+    </section>
+
+    <section>
+      <h2>Образование</h2>
+      <div class="job">
+        <div class="job-top">
+          <h3>Телекоммуникационные системы и сети ж/д транспорта</h3>
+          <span class="when">2019</span>
+        </div>
+        <div class="at">
+          ОмГУПС · Институт автоматики, телекоммуникаций и ИТ
+        </div>
+      </div>
+    </section>
+
+    {
+      posts.length > 0 && (
+        <section>
+          <h2>Публикации</h2>
+          <ul class="post-list">
+            {posts.map((post) => (
+              <li style="padding:0.9rem 0;">
+                <h2 style="font-size:1.15rem;border:none;padding:0;margin:0;text-transform:none;letter-spacing:normal;font-family:var(--font-display);font-weight:600;">
+                  <a href={`/posts/${post.id}/`}>{post.data.title}</a>
+                </h2>
+                <p class="desc" style="margin-top:0.2rem;">
+                  {post.data.description}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    <p class="resume-back" style="margin-top:3rem;">
+      <a href="/">← к статьям</a>
+    </p>
+  </div>
+</BaseLayout>
