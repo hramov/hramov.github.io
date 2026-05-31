@@ -28,7 +28,7 @@ export default defineConfig({
   // ВАЖНO: поменяй на свой адрес.
   // - Собственный домен:           site: 'https://имя.dev'        (base оставь '/')
   // - GitHub Pages project-страница: site: 'https://USER.github.io', base: '/REPO'
-  site: 'https://example.com',
+  site: 'https://hramov.github.io',
   // base: '/blog',
   integrations: [sitemap()],
   markdown: {
