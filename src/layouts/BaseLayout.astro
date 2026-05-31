@@ -1,11 +1,14 @@
 ---
-import '../styles/global.css';
+import "../styles/global.css";
 
 interface Props {
   title: string;
   description?: string;
 }
-const { title, description = 'Блог про бэкенд, архитектуру и инженерные решения' } = Astro.props;
+const {
+  title,
+  description = "Блог про бэкенд, архитектуру и инженерные решения",
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -15,7 +18,12 @@ const { title, description = 'Блог про бэкенд, архитектур
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <title>{title}</title>
-    <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="RSS"
+      href="/rss.xml"
+    />
   </head>
   <body>
     <header class="site-header">
@@ -35,17 +43,17 @@ const { title, description = 'Блог про бэкенд, архитектур
 
     <footer class="site-footer">
       <div class="wrap">
-        © {new Date().getFullYear()} · собрано на Astro · исходники в Git
+        © {new Date().getFullYear()} - Храмов Сергей
       </div>
     </footer>
 
     <!-- Mermaid: рисует все <pre class="mermaid"> на клиенте. -->
     <script>
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+      import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
       mermaid.initialize({
         startOnLoad: true,
-        theme: 'neutral',
-        fontFamily: 'JetBrains Mono, monospace',
+        theme: "neutral",
+        fontFamily: "JetBrains Mono, monospace",
       });
     </script>
   </body>
