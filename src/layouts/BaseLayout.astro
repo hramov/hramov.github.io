@@ -9,6 +9,9 @@ const {
   title,
   description = "Блог про бэкенд, архитектуру и инженерные решения",
 } = Astro.props;
+
+const resumeUrl =
+  "https://barnaul.hh.ru/resume/3bb845edff085c77380039ed1f503377556645";
 ---
 
 <!doctype html>
@@ -32,8 +35,9 @@ const {
         <a href="/" class="brand">backend<span>/</span>notes</a>
         <nav class="nav">
           <a href="/">Блог</a>
-          <a href="/resume">Резюме</a>
-          <a href="/rss.xml">RSS</a>
+          <a href="/ideas">Идеи</a>
+          <a href={resumeUrl} target="_blank">Резюме</a>
+          <a href="/rss.xml" target="_blank">RSS</a>
         </nav>
       </div>
     </header>
@@ -47,15 +51,5 @@ const {
         © {new Date().getFullYear()} - Храмов Сергей
       </div>
     </footer>
-
-    <!-- Mermaid: рисует все <pre class="mermaid"> на клиенте. -->
-    <script>
-      import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
-      mermaid.initialize({
-        startOnLoad: true,
-        theme: "neutral",
-        fontFamily: "JetBrains Mono, monospace",
-      });
-    </script>
   </body>
 </html>

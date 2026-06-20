@@ -1,0 +1,48 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const ideas = [
+  {
+    slug: "on-call",
+    title: "On-Call",
+    description:
+      "Мобильная игра про распределённые системы. Tron-стиль, cascade failures, SLA таймер. Учишься на симуляции — не на реальных авариях.",
+    tags: ["gamedev", "unity", "distributed systems"],
+    status: "concept",
+    date: "2026",
+  },
+];
+---
+
+<BaseLayout title="Идеи">
+  <div class="wrap">
+    <h1>Идеи</h1>
+    <p style="color: var(--ink-soft); margin-top: 0;">
+      Проекты в разной стадии — от концепции до прототипа.
+    </p>
+
+    <ul class="post-list" style="margin-top: 2.5rem;">
+      {
+        ideas.map((idea) => (
+          <li>
+            <div class="meta">
+              {idea.date} &nbsp;·&nbsp;
+              <span style="color: var(--accent-soft);">{idea.status}</span>
+            </div>
+            <h2>
+              <a href={`/ideas/${idea.slug}`} target="_blank">
+                {idea.title}
+              </a>
+            </h2>
+            <p class="desc">{idea.description}</p>
+            <div class="tags">
+              {idea.tags.map((tag) => (
+                <span>#{tag}</span>
+              ))}
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</BaseLayout>
