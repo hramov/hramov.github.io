@@ -25,7 +25,7 @@ function remarkMermaid() {
 }
 
 export default defineConfig({
-  site: 'https://hramov.github.io',
+  site: 'https://hramov.tech',
   integrations: [sitemap()],
   markdown: {
     remarkPlugins: [remarkMermaid],
